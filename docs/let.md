@@ -297,19 +297,19 @@ ES6 允许块级作用域的任意嵌套。
 
 // 实例 写法1
 var arr = [];
-for(var i = 0; i<10; i++) {
-    arr.push((function (i) {
-        return function(){
+for (var i = 0; i < 10; i++) {
+    arr.push((function(i) {
+        return function() {
             console.log(i);
         }
     })(i));
-    // arr.func = (function(i) {
-        // return function() {
-            // console.log(i);
-        // }
+    // arr[i].func = (function(i) {
+    // return function() {
+    // console.log(i);
+    // }
     // })(i);
 }
-arr[0]();
+arr[0](); // 0
 
 // 实例 写法2
 var arr = [];
@@ -317,12 +317,12 @@ for (var i = 0; i < 10; i++) { (function(i) {
         arr.push(function() {
             console.log(i);
         });
-        // arr.func = function() {
-            // console.log(i);
+        // arr[i].func = function() {
+        // console.log(i);
         // });      
     })(i);
 }
-arr[0]();
+arr[0](); // 0
 
 // 块级作用域写法
 {
@@ -332,10 +332,13 @@ arr[0]();
 
 // 实例
 var arr = [];
-for(let i = 0; i<10; i++) {
-    arr.push(function(){
-    console.log(i);
-})
+for (let i = 0; i < 10; i++) {
+    arr.push(function() {
+        console.log(i);
+    });
+    // arr[i].func = function() {
+    // console.log(i);
+    // });
 }
 arr[0](); // 0
 ```
