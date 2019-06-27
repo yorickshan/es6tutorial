@@ -286,7 +286,7 @@ ES6 允许块级作用域的任意嵌套。
 }}}};
 ```
 
-块级作用域的出现，实际上使得获得广泛应用的立即执行函数表达式（IIFE）不再必要了。
+块级作用域的出现，实际上使得获得广泛应用的立即执行函数表达式（IIFE）不再必要了。（一般认为IIFE就是闭包）
 
 ```javascript
 // IIFE 写法
@@ -295,11 +295,49 @@ ES6 允许块级作用域的任意嵌套。
   ...
 }());
 
+// 实例 写法1
+var arr = [];
+for(var i = 0; i<10; i++) {
+    arr.push((function (i) {
+        return function(){
+            console.log(i);
+        }
+    })(i));
+    // arr.func = (function(i) {
+        // return function() {
+            // console.log(i);
+        // }
+    // })(i);
+}
+arr[0]();
+
+// 实例 写法2
+var arr = [];
+for (var i = 0; i < 10; i++) { (function(i) {
+        arr.push(function() {
+            console.log(i);
+        });
+        // arr.func = function() {
+            // console.log(i);
+        // });      
+    })(i);
+}
+arr[0]();
+
 // 块级作用域写法
 {
   let tmp = ...;
   ...
 }
+
+// 实例
+var arr = [];
+for(let i = 0; i<10; i++) {
+    arr.push(function(){
+    console.log(i);
+})
+}
+arr[0](); // 0
 ```
 
 ### 块级作用域与函数声明
